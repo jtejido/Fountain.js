@@ -13,7 +13,9 @@
 
     transition: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/,
     
-    dialogue: /^([A-Z*_]+[0-9A-Z (._\-')]*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
+    character_forced: /^(\@+)/g,
+    dialogue: /^([A-Z*_]+[0-9A-Z# (._\-')]*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
+    dialogue2: /^([@A-Z*_]+[0-9A-Za-z# (._\-')]*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
     parenthetical: /^(\(.+\))$/,
 
     action: /^(.+)/g,
@@ -36,6 +38,7 @@
     bold_italic: /(\*{3}(?=.+\*{3}))(.+?)(\*{3})/g,
     bold: /(\*{2}(?=.+\*{2}))(.+?)(\*{2})/g,
     italic: /(\*{1}(?=.+\*{1}))(.+?)(\*{1})/g,
+    lyric: /(\~{1}(?=.+\~{1}))(.+?)(\~{1})/g,
     underline: /(_{1}(?=.+_{1}))(.+?)(_{1})/g,
 
     splitter: /\n{2,}/g,
@@ -83,6 +86,7 @@
         continue;
       }
 
+
       // centered
       if (match = line.match(regex.centered)) {
         tokens.push({ type: 'centered', text: match[0].replace(/>|</g, '') });
@@ -94,9 +98,10 @@
         tokens.push({ type: 'transition', text: match[1] || match[2] });
         continue;
       }
+
     
-      // dialogue blocks - characters, parentheticals and dialogue
-      if (match = line.match(regex.dialogue)) {
+      if (match = line.match(regex.character_forced)) {
+      if (match = line.match(regex.dialogue2)) {
         if (match[1].indexOf('  ') !== match[1].length - 2) {
           // we're iterating from the bottom up, so we need to push these backwards
           if (match[2]) {
@@ -115,7 +120,7 @@
             }
           }
 
-          tokens.push({ type: 'character', text: match[1].trim() });
+          tokens.push({ type: 'character', text: match[1].replace(/\@/g, '').trim() });
           tokens.push({ type: 'dialogue_begin', dual: match[2] ? 'right' : dual ? 'left' : undefined });
 
           if (dual) {
@@ -126,12 +131,58 @@
           continue;
         }
       }
+
+    }
+    else {
+
+      if (match = line.match(regex.dialogue)) {
+        if (match[1].indexOf('  ') !== match[1].length - 2) {
+          // we're iterating from the bottom up, so we need to push these backwards
+          if (match[2]) {
+            tokens.push({ type: 'dual_dialogue_end' });
+          }
+
+          tokens.push({ type: 'dialogue_end' });
+
+          parts = match[3].split(/(\(.+\))(?:\n+)/).reverse();
+
+          for (x = 0, xlen = parts.length; x < xlen; x++) { 
+            text = parts[x];
+
+            if (text.length > 0) {
+              tokens.push({ type: regex.parenthetical.test(text) ? 'parenthetical' : 'dialogue', text: text });
+            }
+          }
+
+          tokens.push({ type: 'character', text: match[1].replace(/\@/g, '').trim() });
+          tokens.push({ type: 'dialogue_begin', dual: match[2] ? 'right' : dual ? 'left' : undefined });
+
+          if (dual) {
+            tokens.push({ type: 'dual_dialogue_begin' });
+          }
+
+          dual = match[2] ? true : false;
+          continue;
+        }
+      }
+
+    }
+
+
       
       // section
       if (match = line.match(regex.section)) {
         tokens.push({ type: 'section', text: match[2], depth: match[1].length });
         continue;
       }
+
+
+      // lyric
+      if (match = line.match(regex.lyric)) {
+        tokens.push({ type: 'lyric', text: match[0].replace(/\~+|\~/g, '') });
+        continue;
+      }
+
       
       // synopsis
       if (match = line.match(regex.synopsis)) {
@@ -163,7 +214,10 @@
         continue;
       }
 
-      tokens.push({ type: 'action', text: line });
+
+        tokens.push({ type: 'action', text: line });
+  
+
     }
 
     return tokens;
@@ -246,6 +300,7 @@
 
         case 'section': html.push('<p class=\"section\" data-depth=\"' + token.depth + '\">' + token.text + '</p>'); break;
         case 'synopsis': html.push('<p class=\"synopsis\">' + token.text + '</p>'); break;
+        case 'lyric': html.push('<p class=\"lyric\">' + token.text + '</p>'); break;
 
         case 'note': html.push('<!-- ' + token.text + '-->'); break;
         case 'boneyard_begin': html.push('<!-- '); break;
