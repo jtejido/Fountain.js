@@ -6,20 +6,8 @@ The following are added:
 * Strings that starts and ends with ~ (Lyrics) are parsed and styled as Oblique.
 * Support for forcing Character names with small caps in between, such as 'McMAHON', are forced by prepending the name with '@'. e.g. '@McMAHON'. the '@' will be omitted when parsed.
 
-
-fountain-js is a JavaScript based parser for the screenplay format [Fountain](http://fountain.io/).
-
-You can [try fountain-js out](http://mattdaly.github.com/Fountain.js/). The file system currently uses the HTML 5 File API, which means not all browsers support it, you'll be told if yours doesn't - I'm working on compatiblity. CSS styling isn't complete, so some elements aren't placed correctly and the text spacing might not be quite right, and, as you'll see, individual pages aren't currently supported either.
-
-# Syntax Support
-
-As of version 0.1.8 the full Fountain syntax is supported.
-
-Currently fountain-js supports a limited range of key-value pairs for title pages - 
-
-* Title, Credit, Author/s, Source, Notes, Draft date, Date, Contact, Copyright
-
-Work is being done to make title page parsing friendlier, allowing custom key-value pairs, but as of version 0.1.0 only the above are supported.
+Regards,
+jtejido
 
 fountain-js
 ===========
