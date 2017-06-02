@@ -5,9 +5,11 @@ The following are added:
 
 * Strings that starts and ends with ~ (Lyrics) are parsed and styled as Oblique.
 * Support for forcing Character names with small caps in between, such as 'McMAHON', are forced by prepending the name with '@'. e.g. '@McMAHON'. the '@' will be omitted when parsed.
+* Support for forcing capitalized action/s followed by regular actions and avoid mistakenly parsing it as a Dialogue. e.g. 'BOOM!!' should be forced as '!BOOM!!'
 
 Regards,
-jtejido
+
+Jericko
 
 fountain-js
 ===========
