@@ -14,8 +14,7 @@
     transition: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/,
     
     character_forced: /^(\@+)/g,
-    dialogue: /^([A-Z*_]+[0-9A-Z# (._\-')]*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
-    dialogue2: /^([@A-Z*_]+[0-9A-Za-z# (._\-')]*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
+    dialogue: /^(\@+[0-9A-Za-z# (,._\-']*|[A-Z]+[0-9A-Z# (,._\-']*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
     parenthetical: /^(\(.+\))$/,
 
     action: /^(.+)/g,
@@ -100,40 +99,6 @@
       }
 
     
-      if (match = line.match(regex.character_forced)) {
-      if (match = line.match(regex.dialogue2)) {
-        if (match[1].indexOf('  ') !== match[1].length - 2) {
-          // we're iterating from the bottom up, so we need to push these backwards
-          if (match[2]) {
-            tokens.push({ type: 'dual_dialogue_end' });
-          }
-
-          tokens.push({ type: 'dialogue_end' });
-
-          parts = match[3].split(/(\(.+\))(?:\n+)/).reverse();
-
-          for (x = 0, xlen = parts.length; x < xlen; x++) {	
-            text = parts[x];
-
-            if (text.length > 0) {
-              tokens.push({ type: regex.parenthetical.test(text) ? 'parenthetical' : 'dialogue', text: text });
-            }
-          }
-
-          tokens.push({ type: 'character', text: match[1].replace(/\@/g, '').trim() });
-          tokens.push({ type: 'dialogue_begin', dual: match[2] ? 'right' : dual ? 'left' : undefined });
-
-          if (dual) {
-            tokens.push({ type: 'dual_dialogue_begin' });
-          }
-
-          dual = match[2] ? true : false;
-          continue;
-        }
-      }
-
-    }
-    else {
 
       if (match = line.match(regex.dialogue)) {
         if (match[1].indexOf('  ') !== match[1].length - 2) {
@@ -154,7 +119,7 @@
             }
           }
 
-          tokens.push({ type: 'character', text: match[1].replace(/\@/g, '').trim() });
+            tokens.push({ type: 'character', text: match[1].replace(/\@/g, '').trim() });
           tokens.push({ type: 'dialogue_begin', dual: match[2] ? 'right' : dual ? 'left' : undefined });
 
           if (dual) {
@@ -165,8 +130,6 @@
           continue;
         }
       }
-
-    }
 
 
       
