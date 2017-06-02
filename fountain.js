@@ -178,7 +178,7 @@
       }
 
 
-        tokens.push({ type: 'action', text: line });
+        tokens.push({ type: 'action', text: line.replace(/\!/, '') });
   
 
     }
