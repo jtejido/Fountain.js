@@ -1,7 +1,7 @@
 Introduction
 ===========
 This is my updated version of Matt Daly's [fountain-js](https://github.com/mattdaly/Fountain.js).
-The following are added:
+The following are added based on [Fountain's syntax](https://fountain.io/syntax):
 
 * Strings that starts and ends with ~ (Lyrics) are parsed and styled as Oblique.
 * Support for forcing Character names with small caps in between, such as 'McMAHON', are forced by prepending the name with '@'. e.g. '@McMAHON'. the '@' will be omitted when parsed.
