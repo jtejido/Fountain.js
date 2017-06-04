@@ -7,6 +7,9 @@ The following are added based on [Fountain's syntax](https://fountain.io/syntax)
 * Support for forcing Character names with small caps in between, such as 'McMAHON', are forced by prepending the name with '@'. e.g. '@McMAHON'. the '@' will be omitted when parsed.
 * Support for forcing capitalized action/s followed by regular actions by prepending it with '!' and avoid mistakenly parsing it as a Dialogue. e.g. 'BOOM!!' should be forced as '!BOOM!!'
 
+
+You can out this version [here](https://jtejido.github.io/Fountain.js/)
+
 Regards,
 
 Jericko
@@ -16,7 +19,7 @@ fountain-js
 
 fountain-js is a JavaScript based parser for the screenplay format [Fountain](http://fountain.io/).
 
-You can [try fountain-js out](http://mattdaly.github.com/Fountain.js/). The file system currently uses the HTML 5 File API, which means not all browsers support it, you'll be told if yours doesn't - I'm working on compatiblity. CSS styling isn't complete, so some elements aren't placed correctly and the text spacing might not be quite right, and, as you'll see, individual pages aren't currently supported either.
+You can [try Matt's fountain-js out](http://mattdaly.github.com/Fountain.js/). The file system currently uses the HTML 5 File API, which means not all browsers support it, you'll be told if yours doesn't - I'm working on compatiblity. CSS styling isn't complete, so some elements aren't placed correctly and the text spacing might not be quite right, and, as you'll see, individual pages aren't currently supported either.
 
 # Syntax Support
 
