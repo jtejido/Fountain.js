@@ -11,6 +11,7 @@ The following are added based on [Fountain's syntax](https://fountain.io/syntax)
 You can out this version [here](https://jtejido.github.io/Fountain.js/)
 
 Regards,
+
 Jericko
 
 fountain-js
