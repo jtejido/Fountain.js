@@ -5,13 +5,12 @@ The following are added based on [Fountain's syntax](https://fountain.io/syntax)
 
 * Strings that starts and ends with ~ (Lyrics) are parsed and styled as Oblique.
 * Support for forcing Character names with small caps in between, such as 'McMAHON', are forced by prepending the name with '@'. e.g. '@McMAHON'. the '@' will be omitted when parsed.
-* Support for forcing capitalized action/s followed by regular actions by prepending it with '!' and avoid mistakenly parsing it as a Dialogue. e.g. 'BOOM!!' should be forced as '!BOOM!!'
+* Support for forcing capitalized action/s followed by regular actions by prepending it with '!' and avoid mistakenly parsing it as a Dialogue. e.g. 'BOOM!!' should be forced as '!BOOM!!'. the beginning '!' will be omitted when parsed.
 
 
 You can out this version [here](https://jtejido.github.io/Fountain.js/)
 
 Regards,
-
 Jericko
 
 fountain-js
