@@ -36,7 +36,7 @@
     bold_italic: /(\*{3}(?=.+\*{3}))(.+?)(\*{3})/g,
     bold: /(\*{2}(?=.+\*{2}))(.+?)(\*{2})/g,
     italic: /(\*{1}(?=.+\*{1}))(.+?)(\*{1})/g,
-    lyric: /(\~{1}(?=.+\~{1}))(.+?)(\~{1})/g,
+    lyric: /^(\~.+)/g,
     underline: /(_{1}(?=.+_{1}))(.+?)(_{1})/g,
 
     splitter: /\n{2,}/g,
@@ -141,7 +141,7 @@
 
       // lyric
       if (match = line.match(regex.lyric)) {
-        tokens.push({ type: 'lyric', text: match[0].replace(/\~+|\~/g, '') });
+        tokens.push({ type: 'lyric', text: match[0].replace(/\~/, '') });
         continue;
       }
 

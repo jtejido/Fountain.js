@@ -3,7 +3,7 @@ Introduction
 This is my updated version of Matt Daly's [fountain-js](https://github.com/mattdaly/Fountain.js).
 The following are added based on [Fountain's syntax](https://fountain.io/syntax):
 
-* Strings that starts and ends with ~ (Lyrics) are parsed and styled as Oblique.
+* Strings that starts with ~ (Lyrics) are parsed and styled as Oblique.
 * Support for forcing Character names with small caps in between, such as 'McMAHON', are forced by prepending the name with '@'. e.g. '@McMAHON'. the '@' will be omitted when parsed.
 * Support for forcing capitalized action/s followed by regular actions by prepending it with '!' and avoid mistakenly parsing it as a Dialogue. e.g. 'BOOM!!' should be forced as '!BOOM!!'. the beginning '!' will be omitted when parsed.
 
